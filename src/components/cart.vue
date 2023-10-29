@@ -5,7 +5,7 @@
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.title }} - ${{ item.price }}
-          <button @click="removefromCart(product)">Remove From Cart</button>
+          <button @click="removefromCart(item)">Remove From Cart</button>
         </li>
       </ul>
     </div>

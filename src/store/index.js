@@ -1,9 +1,9 @@
-import { createStore } from 'vuex';
+import { createStore } from "vuex";
 
 const store = createStore({
   state: {
     products: [], // This is your global state
-    cart : [],
+    cart: [],
   },
   mutations: {
     setProducts(state, products) {
@@ -12,28 +12,33 @@ const store = createStore({
     addToCart(state, product) {
       state.cart.push(product);
     },
-    removefromCart(state, product)
-    {
-      state.cart = state.cart.filter(item => item.id !== product.id);
-
-    }
+    removefromCart(state, product) {
+      const pid = product.id;
+      const index = state.cart.findIndex(
+        (item) => item.id === pid
+    );
+    if(index === -1) return;
+        state.cart = state.cart.filter(
+            (item) => item.id !== pid
+        );
+    },
+      
   },
   actions: {
     async fetchProducts({ commit }) {
       const response = await fetch("https://dummyjson.com/products");
       const products = await response.json();
-      commit('setProducts', products.products);
+      commit("setProducts", products.products);
     },
     addToCart({ commit }, product) {
-      commit('addToCart', product);
+      commit("addToCart", product);
     },
-    removefromCart({commit}, product)
-    {
-      commit('removefromCart', product);
-    }
+    removefromCart({ commit }, product) {
+      commit("removefromCart", product);
+    },
   },
   getters: {
-    cartItems: (state) => state.cart
+    cartItems: (state) => state.cart,
   },
 });
 
