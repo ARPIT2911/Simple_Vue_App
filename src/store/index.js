@@ -3,11 +3,20 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     products: [], // This is your global state
+    cart : [],
   },
   mutations: {
     setProducts(state, products) {
       state.products = products;
     },
+    addToCart(state, product) {
+      state.cart.push(product);
+    },
+    removefromCart(state, product)
+    {
+      state.cart = state.cart.filter(item => item.id !== product.id);
+
+    }
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -15,8 +24,16 @@ const store = createStore({
       const products = await response.json();
       commit('setProducts', products.products);
     },
+    addToCart({ commit }, product) {
+      commit('addToCart', product);
+    },
+    removefromCart({commit}, product)
+    {
+      commit('removefromCart', product);
+    }
   },
   getters: {
+    cartItems: (state) => state.cart
   },
 });
 

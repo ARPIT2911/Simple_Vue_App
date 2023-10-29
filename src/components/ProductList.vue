@@ -14,6 +14,7 @@
         {{
           product.description
         }}
+        <button @click="addToCart(product)">Add to Cart</button>
       </ul>
     </ul>
     <ul v-else>
@@ -27,6 +28,7 @@
         {{
           product.description
         }}
+        <button @click="addToCart(product)">Add to Cart</button>
       </ul>
     </ul>
   </div>
@@ -118,6 +120,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    addToCart(product) {
+      this.$store.dispatch("addToCart", product);
     },
   },
   created() {
